@@ -1,0 +1,30 @@
+app:
+  jwtExpirationInMs: '604800000'
+  jwtSecret: e031c76f32cd0658337dbe6702b82dda4962b3debb8319b88feec23b7e154279af
+server:
+  port: '8080'
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/security
+    username: postgres
+    password: 500NSczx
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: 'false'
+    time-zone: UTC
+  jpa:
+    properties:
+      hibernate:
+        show_sql: false
+        format_sql: false
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+    ru.vtb.msa: DEBUG
+    org:
+      springframework:
+        transaction: INFO
+        orm:
+          jpa: INFO

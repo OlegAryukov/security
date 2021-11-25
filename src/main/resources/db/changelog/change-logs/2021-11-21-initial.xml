@@ -1,0 +1,50 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet id="2021-11-21-initial" author="Oleg.Aryukov">
+		<createTable tableName="users">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="name" type="varchar(100)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="password" type="varchar(300)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+
+		<createTable tableName="refresh_token">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="user_id" type="int">
+				<constraints nullable="false"
+					foreignKeyName="fk_refresh_token_user" references="users(id)" />
+			</column>
+			<column name="token" type="varchar(40)">
+				<constraints nullable="false" unique="true" />
+			</column>
+			<column name="invalidated" type="boolean">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="messages">
+			<column name="id" type="int" autoIncrement="true">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="user_id" type="int">
+				<constraints nullable="false"
+							 foreignKeyName="fk_messages_user" references="users(id)" />
+			</column>
+			<column name="message" type="varchar(512)">
+				<constraints nullable="false" unique="true" />
+			</column>
+		</createTable>
+	</changeSet>
+
+</databaseChangeLog>
