@@ -5,10 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class GlobalResponse {
-	
-	String message;
-	
-	Object data;
-	
+public class MessageResponse {
+    private String name;
+    private String message;
 }

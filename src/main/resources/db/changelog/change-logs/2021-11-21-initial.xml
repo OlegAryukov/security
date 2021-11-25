@@ -17,22 +17,6 @@
 			</column>
 		</createTable>
 
-		<createTable tableName="refresh_token">
-			<column name="id" type="int" autoIncrement="true">
-				<constraints nullable="false" primaryKey="true" />
-			</column>
-			<column name="user_id" type="int">
-				<constraints nullable="false"
-					foreignKeyName="fk_refresh_token_user" references="users(id)" />
-			</column>
-			<column name="token" type="varchar(40)">
-				<constraints nullable="false" unique="true" />
-			</column>
-			<column name="invalidated" type="boolean">
-				<constraints nullable="false" />
-			</column>
-		</createTable>
-
 		<createTable tableName="messages">
 			<column name="id" type="int" autoIncrement="true">
 				<constraints nullable="false" primaryKey="true" />

@@ -39,7 +39,6 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final CustomUserDetailsService customUserDetailsService;
     private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/signin")
@@ -79,22 +78,4 @@ public class AuthController {
         return ResponseEntity.created(location).body(new ApiResponse(true, MessageConstants.REGISTERED_SUCCESSFULLY));
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    @PostMapping("/validateToken")
-    public ResponseEntity<?> getTokenByCredentials(@Valid @RequestBody ValidateTokenRequest validateToken) {
-        String username = null;
-        String jwt = validateToken.getToken();
-
-        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
-            Integer userId = tokenProvider.getUserIdFromJWT(jwt);
-
-            UserDetails userDetails = customUserDetailsService.loadUserById(userId);
-            username = userDetails.getUsername();
-            return ResponseEntity.ok(new ApiResponse(Boolean.TRUE, MessageConstants.VALID_TOKEN + username));
-        } else {
-            return new ResponseEntity(new ApiResponse(false, MessageConstants.INVALID_TOKEN),
-                    HttpStatus.BAD_REQUEST);
-        }
-
-    }
 }
